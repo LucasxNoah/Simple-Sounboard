@@ -94,10 +94,13 @@
     const mute=document.getElementById("mute");
     function toggleMute() {
       muted = !muted;
-      mute.innerText=(muted) ? "🔊 Unmute" : "🔇 Mute" ;
-
+      mute.innerText=(muted) ? "🔊 Unmute" : "🔇 Mute" ; 
+      if(muted){
+        current.pause();
+      }
     }
   </script>
 
 </body>
 </html>
+

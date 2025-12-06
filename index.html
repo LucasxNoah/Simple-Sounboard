@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Soundboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #111;
+      color: white;
+      padding-top: 50px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+    }
+
+    button:hover{
+      background-color: aqua;
+      transform: translate(2px,-2px);
+      box-shadow:0px 0px 10px yellow;
+    }
+
+    input {
+      margin-top: 20px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎵 Simple Soundboard</h1>
+
+  <button onclick="playSound('dog')">🐶 Dog</button>
+  <button onclick="playSound('clap')">👏 Clap</button>
+  <button onclick="playSound('pop')">💥 Pop</button>
+  <button onclick="playSound('laugh')">😂 Laugh</button>
+
+  <br><br>
+
+  <label>Volume</label><br>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" id="volumeSlider">
+
+  <br><br>
+
+  <button onclick="toggleMute()" id="mute">🔇 Mute</button>
+  <button onclick="pause()" dblclick="play()" id="pause">⏸️ Pause</button>
+
+  <script>
+    const sounds = {
+      dog: new Audio("dog.mp3"),
+      clap: new Audio("clap.mp3"),
+      pop: new Audio("pop.mp3"),
+      laugh: new Audio("laugh.mp3")
+    };
+
+    let muted = false;
+    let current = null; 
+    let play_pause = true;
+
+    function playSound(name) {
+      const sound = sounds[name];
+       current =sound;
+      sound.currentTime = 0; 
+      sound.volume = document.getElementById("volumeSlider").value;
+      
+      if (!muted) {
+        sound.play();
+      }
+    }
+  
+
+    const paus=document.getElementById("pause");
+    function pause(){
+        if(current){
+          current.pause();
+          play_pause=false;
+        }
+        pause.innerText=(play_pause) ? " ⏸️ Pause " : " ▶️ Play "
+    }
+
+    function play(){
+      if(current){
+        current.play();
+      }
+    }
+
+    const mute=document.getElementById("mute");
+    function toggleMute() {
+      muted = !muted;
+      mute.innerText=(muted) ? "🔊 Unmute" : "🔇 Mute" ;
+
+    }
+  </script>
+
+</body>
+</html>
